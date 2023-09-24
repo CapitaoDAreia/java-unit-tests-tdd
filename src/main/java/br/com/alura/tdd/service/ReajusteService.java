@@ -19,6 +19,10 @@ public class ReajusteService {
         switch (desempenho){
             case A_DESEJAR:
                 return new BigDecimal("0.03");
+            case BOM:
+                return new BigDecimal("0.15");
+            case OTIMO:
+                return new BigDecimal("0.20");
             default:
                 return null;
         }

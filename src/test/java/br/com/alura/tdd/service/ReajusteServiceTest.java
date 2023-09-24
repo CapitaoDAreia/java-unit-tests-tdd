@@ -31,16 +31,30 @@ public class ReajusteServiceTest {
         reajusteService.aplicarReajuste(empregado, desempenho);
 
         //then
-        Assertions.assertEquals(empregado.getSalario(), resultadoEsperado);
+        Assertions.assertEquals(resultadoEsperado, empregado.getSalario());
     }
 
     @Test
     public void readjustmentShouldBeFifteenPerCentWhenPerformanceIsGood(){
+        Funcionario empregado = EmployeeFactory.buildAnEmployee(new BigDecimal("1000.0"));
+        ReajusteService reajusteService = new ReajusteService();
+        BigDecimal resultadoEsperado = new BigDecimal("1150.00");
+        var desempenho = DesempenhoEnum.BOM;
 
+        reajusteService.aplicarReajuste(empregado, desempenho);
+
+        Assertions.assertEquals(resultadoEsperado, empregado.getSalario());
     }
 
     @Test
     public void readjustmentShouldBeTwentyPerCentWhenPerformanceIsExcellent(){
+        Funcionario empregado = EmployeeFactory.buildAnEmployee(new BigDecimal("1000.0"));
+        ReajusteService reajusteService = new ReajusteService();
+        BigDecimal resultadoEsperado = new BigDecimal("1200.00");
+        var desempenho = DesempenhoEnum.OTIMO;
 
+        reajusteService.aplicarReajuste(empregado, desempenho);
+
+        Assertions.assertEquals(resultadoEsperado, empregado.getSalario());
     }
 }
