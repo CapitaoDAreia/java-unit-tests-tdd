@@ -1,6 +1,7 @@
 package br.com.alura.tdd.service;
 
 import br.com.alura.tdd.modelo.Funcionario;
+import br.com.alura.tdd.service.employeeFactory.EmployeeFactory;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,7 @@ class BonusServiceTest {
     @Test
     void shouldApplyBonusIfWageIsMinorThanTenThousand() {
         //given
-        Funcionario employee = buildAnEmployeeReceivingWage(new BigDecimal("9999.0"));
+        Funcionario employee = EmployeeFactory.buildAnEmployee(new BigDecimal("9999.0"));
         BonusService bonusService = new BonusService();
         BigDecimal expectedBonus = new BigDecimal("999.90");
 
@@ -26,7 +27,7 @@ class BonusServiceTest {
     @Test
     void shouldNotApplyBonusIfWageEqualsTenThousand() {
         //given
-        Funcionario employee = buildAnEmployeeReceivingWage(new BigDecimal("10000.0"));
+        Funcionario employee = EmployeeFactory.buildAnEmployee(new BigDecimal("10000.0"));
         BonusService bonusService = new BonusService();
         BigDecimal expectedBonus = new BigDecimal("0");
 
@@ -40,7 +41,7 @@ class BonusServiceTest {
     @Test
     void shouldNotApplyBonusIfWageIsMajorThanTenThousand() {
         //given
-        Funcionario employee = buildAnEmployeeReceivingWage(new BigDecimal("10001.0"));
+        Funcionario employee = EmployeeFactory.buildAnEmployee(new BigDecimal("10001.0"));
         BonusService bonusService = new BonusService();
         BigDecimal expectedBonus = new BigDecimal("0");
 
@@ -51,11 +52,4 @@ class BonusServiceTest {
         Assertions.assertEquals(expectedBonus, result);
     }
 
-    private Funcionario buildAnEmployeeReceivingWage(BigDecimal wage) {
-        return new Funcionario(
-                "Employee",
-                LocalDate.now(),
-                wage
-        );
-    }
 }
